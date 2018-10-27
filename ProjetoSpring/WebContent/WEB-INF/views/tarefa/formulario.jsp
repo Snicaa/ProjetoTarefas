@@ -6,32 +6,37 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Tarefas</title>
-		<link rel="stylesheet" type="text/css" href="css/css.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
-	<body>
-		<h3>Adicionar tarefas</h3>
-		<form:errors path="tarefa.descricao" cssStyle="color:red"/>
-		<form action="adicionaTarefa" method="post">
-			Descrição: <br />
-			<textarea class="txt" placeholder="Informe a descrição da tarefa aqui." minlength="5"	 name="descricao" rows="10" cols="50" style="border: 1px solid black; overflow:auto; outline: none;"></textarea><br />
-			<input class="btn" type="submit" value="Adicionar" disabled>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-			<script>
-				$(".txt").on("input", function(){
-                    var string = $(".txt").val();
-					if (string.length < 5){
-                        if (string.length == 0){
-                            $(".txt").css("border", "1px black solid");
-                        } else {
-                            $(".txt").css("border", "1px red solid");
-                            $(".btn").attr("disabled", "disabled");
-                        }
-                    } else {
-                        $(".txt").css("border", "1px green solid");
-                        $(".btn").removeAttr("disabled");
-                    }
-				});
-			</script>
-		</form>
-	</body>
+	<h1>Adicionar Tarefa</h1>
+	<p>Descrição:</p>
+	<main class="mainForm">
+		<body>
+			<div class="divForm">
+					<form:errors path="tarefa.descricao" cssStyle="color:red"/>
+					<form action="adicionaTarefa" method="post">
+		
+						<textarea class="txt" placeholder="Informe a descrição da tarefa aqui." minlength="5"	 name="descricao" rows="10" cols="50" style="border: 1px solid black; overflow:auto; outline: none;"></textarea><br />
+						<input id="adicionar" class="button" type="submit" value="Adicionar" disabled>
+						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+						<script>
+							$(".txt").on("input", function(){
+			                    var string = $(".txt").val();
+								if (string.length < 5){
+			                        if (string.length == 0){
+			                            $(".txt").css("border", "1px black solid");
+			                        } else {
+			                            $(".txt").css("border", "1px red solid");
+			                            $(".button").attr("disabled", "disabled");
+			                        }
+			                    } else {
+			                        $(".txt").css("border", "1px green solid");
+			                        $(".button").removeAttr("disabled");
+			                    }
+							});
+						</script>
+					</form>
+				</div>
+		</body>
+	</main>
 </html>

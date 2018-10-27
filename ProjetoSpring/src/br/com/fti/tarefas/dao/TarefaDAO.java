@@ -186,7 +186,40 @@ public class TarefaDAO {
 			conn.commit();
 			
 		} catch (SQLException e) {
-			System.out.println("Erro no método buscaPorId");
+			System.out.println("Erro no método altera");
+			e.printStackTrace();
+		} finally {
+			db.finalizaObjetos(rs, stmt, conn);
+		}
+	}
+	
+	public void finaliza(Long id){ 
+			
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = db.obterConexao();
+			
+			StringBuffer sql = new StringBuffer();
+			
+			sql.append("UPDATE tarefas SET finalizado = ?, dataFinalizacao = ? "
+					+ "WHERE id = ?;");
+			
+			stmt = conn.prepareStatement(sql.toString());
+			
+			java.sql.Date d = new java.sql.Date(new Date().getTime());
+			
+			stmt.setBoolean(1, true);
+			stmt.setDate(2, d);
+			stmt.setLong(3, id);
+			
+			stmt.execute();
+			conn.commit();
+				
+		} catch (SQLException e) {
+			System.out.println("Erro no método finaliza");
 			e.printStackTrace();
 		} finally {
 			db.finalizaObjetos(rs, stmt, conn);

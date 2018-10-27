@@ -5,12 +5,14 @@ import br.com.fti.tarefas.model.*;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TarefasController {
@@ -23,11 +25,12 @@ public class TarefasController {
 	}
 	
 	@RequestMapping("adicionaTarefa")
-	public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
+	public String adiciona(@Valid Tarefa tarefa, BindingResult result, Model model) {
 		
 		if(result.hasFieldErrors("descricao")){
 			return"tarefa/formulario";
 		}
+		model.addAttribute("tarefa", tarefa);
 		dao.adiciona(tarefa);
 		return "tarefa/adicionada";
 	}
@@ -60,4 +63,10 @@ public class TarefasController {
 		return "redirect:listaTarefas";
 	}
 	
+	@RequestMapping("finalizaTarefa")
+	public String finaliza(Long id, Model model) {
+		dao.finaliza(id);
+		model.addAttribute("tarefa", dao.buscaPorId(id));
+		return "tarefa/finalizada";
+	}
 }
